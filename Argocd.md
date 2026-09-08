@@ -135,8 +135,12 @@ spec:
   project: default
   source:
     repoURL: <GIT_REPO_URL>
-    targetRevision: <BRANCH>
-    path: <PATH_TO_MANIFESTS>
+    targetRevision: <BRANCH>          # e.g., main ya master
+    path: <PATH_TO_MANIFESTS_OR_HELM> # e.g., K8S/Umbrella-chart
+    # Helm charts ke liye niche wale section ko uncomment karen:
+    # helm:
+    #   valueFiles:
+    #     - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: <TARGET_NAMESPACE>
