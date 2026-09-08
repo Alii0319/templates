@@ -6,6 +6,30 @@ Replace every `<PLACEHOLDER>` before running a command.
 
 ---
 
+## 0. Install the ArgoCD CLI
+
+**Linux:**
+
+```bash
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm argocd-linux-amd64
+```
+
+**macOS:**
+
+```bash
+brew install argocd
+```
+
+Verify:
+
+```bash
+argocd version --client
+```
+
+---
+
 ## 1. Create the ArgoCD namespace
 
 ```bash
@@ -71,9 +95,11 @@ Username: `admin`. Use this with the password above to log into the UI from step
 ## 7. Log in via ArgoCD CLI and change password
 
 ```bash
-argocd login <EXTERNAL-IP>
+argocd login <EXTERNAL-IP> --insecure
 argocd account update-password
 ```
+
+> `--insecure` is required because ArgoCD's default TLS cert is self-signed. Once you set up a real cert (via Ingress + cert-manager, or a company-issued cert), drop this flag.
 
 ---
 
